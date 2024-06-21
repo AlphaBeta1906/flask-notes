@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if edit %}
+        <h1>Create new note</h1>
+    {% else %}
+        <h1>Edit note</h1>
+    {% endif %}
+    <div class="container" style="padding-top: 3rem;padding-bottom: 3rem;">
+        <form action="" method="POST">
+            <input name="title" type="text" placeholder="Title" value="{{content_title if content_title else ''}} " required>
+            <textarea name="content" placeholder="Note's content" name="" id="" cols="30" rows="10">{{content if content else ''}}</textarea>
+            <button>Save</button>
+            {% if edit %}
+                <a href="{{url_for('main.delete',id=id)}} " type="button" class="contrast">Delete</a>
+            {% endif %}
+        </form>
+
+    </div>
+{% endblock content %}

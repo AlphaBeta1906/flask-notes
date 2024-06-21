@@ -1,0 +1,23 @@
+{% extends  "base.html" %}
+{% block content %}
+    <div class="container" style="padding-top: 3rem;">
+        <h1>Your notes</h1>
+        {% for note in notes %}
+            <article>
+                <header>
+                    <h3>
+                        <a href="{{url_for('main.note',id=note[0].id)}} ">{{note[0].title}}</a>
+                    </h3>
+                </header>
+               Date created: {{note[0].created.strftime('%d/%M/%Y')}}
+            </article>
+        {% else %}
+            <center>
+                <h2>No notes</h2>
+            </center>
+        {% endfor %}
+        <center>
+            <a href="{{url_for('main.create')}} ">Create notes</a>
+        </center>
+    </div>
+{% endblock content %}

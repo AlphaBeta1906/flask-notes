@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>{{title}}</title>
+</head>
+<body>
+    <nav class="container">
+        <ul>
+          <li><strong>Flask notes</strong></li>
+        </ul>
+        <ul>
+          <li><a href="https://sellysblog.netlify.app/about/" class="contrast">About me:)</a></li>
+          {% if session["logged"] %}
+            <li><a href="{{url_for('auth.logout')}} " type="button" class="contrast">Logout</a></li>
+          {% endif %}
+        </ul>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}" x-data="{show: true}" x-show="show" x-transition>
+                    <button class="close-btn" x-on:click="show = !show">&times;</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}   
+    {% block content %}
+    {% endblock content %}
+    <style>
+        .flash-message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: white;
+            position: relative;
+        }
+        .flash-success {
+            background-color: green;
+        }
+        .flash-danger {
+            background-color: red;
+        }
+        .close-btn {
+            position: absolute;
+            top: -5px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</body>
+</html>
